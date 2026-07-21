@@ -132,7 +132,7 @@ Or with `FetchContent`:
 ```cmake
 include(FetchContent)
 FetchContent_Declare(DependencyInjection
-    GIT_REPOSITORY https://github.com/Ukine9999/DI.git
+    GIT_REPOSITORY https://github.com/Ukine9999/DependencyInjection.git
     GIT_TAG        main)
 FetchContent_MakeAvailable(DependencyInjection)
 target_link_libraries(my_app PRIVATE Di::DependencyInjection)
