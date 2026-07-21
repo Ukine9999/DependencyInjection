@@ -1,0 +1,32 @@
+function(di_add_module MODULE_NAME)
+    cmake_parse_arguments(DI_MOD "" "" "SOURCES" ${ARGN})
+
+    if(NOT DI_MOD_SOURCES)
+        message(FATAL_ERROR "di_add_module(${MODULE_NAME}): SOURCES is required")
+    endif()
+
+    set(hasAnchor FALSE)
+    foreach(source IN LISTS DI_MOD_SOURCES)
+        if(source MATCHES "Anchor\\.cpp$")
+            set(hasAnchor TRUE)
+        endif()
+    endforeach()
+    if(NOT hasAnchor)
+        message(FATAL_ERROR "di_add_module(${MODULE_NAME}): no *Anchor.cpp among SOURCES - a module needs a DI_MODULE_ANCHOR translation unit")
+    endif()
+
+    add_library(${MODULE_NAME} STATIC ${DI_MOD_SOURCES})
+    target_link_libraries(${MODULE_NAME} PUBLIC Di::DependencyInjection)
+
+    option(DI_MODULE_WHOLE_ARCHIVE_${MODULE_NAME} "Force-link the whole ${MODULE_NAME} module archive" OFF)
+endfunction()
+
+function(di_module_link TARGET_NAME)
+    foreach(moduleName IN LISTS ARGN)
+        if(DI_MODULE_WHOLE_ARCHIVE_${moduleName})
+            target_link_libraries(${TARGET_NAME} PRIVATE "$<LINK_LIBRARY:WHOLE_ARCHIVE,${moduleName}>")
+        else()
+            target_link_libraries(${TARGET_NAME} PRIVATE ${moduleName})
+        endif()
+    endforeach()
+endfunction()

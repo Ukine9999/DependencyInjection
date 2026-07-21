@@ -1,0 +1,51 @@
+# Compiled object files
+*.o
+*.obj
+*.slo
+*.lo
+
+# Precompiled headers
+*.gch
+*.pch
+
+# Compiled dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Compiled static libraries
+*.a
+*.la
+*.lai
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# CMake / build
+/build/
+/build-*/
+/cmake-build-*/
+/out/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+CTestTestfile.cmake
+_deps/
+Testing/
+
+# IDE
+/.idea/
+/.vs/
+/.vscode/
+*.user
+*.suo
+compile_commands.json
+
+# Debug artifacts
+*.pdb
+*.ilk
+*.exp
+*.map
